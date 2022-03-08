@@ -3,19 +3,19 @@ info:
   title: Syssel|Microservices
   version: 1.0.0
 servers:
-  - url: http://{{base_url}}
+  - url: https://api.staging.syssel.app
 tags:
   - name: User
   - name: Profile
-  - name: Profile/Address
-  - name: Profile/Social
-  - name: Profile/Storefront
+  - name: Profile|Address
+  - name: Profile|Social
+  - name: Profile|Storefront
   - name: Catalog
-  - name: Catalog/Variant
-  - name:  Catalog/Storefront
+  - name: Catalog|Variant
+  - name:  Catalog|Storefront
   - name: Categories
-  - name: Categories/Storefront
-  - name: Files/Image
+  - name: Categories|Storefront
+  - name: Files|Image
 paths:
  
   /users/me:
@@ -64,10 +64,23 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                first_name: Ali
-                last_name: Bukhari
-                phone: null
+              properties:
+                first_name:
+                 type: string
+                 example: Sohail
+                last_name:
+                 type: string
+                 example: Bukhari
+                username:
+                 type: string
+                 example: rosamond76
+                email:
+                 type: string
+                 example: grant91@yahoo.com
+                phone:
+                 type: string
+                 example: null
+              
       parameters:
         - name: Authorization
           in: header
@@ -110,12 +123,28 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                first_name: Sohail
-                last_name: Bukhari
-                username: '{{$randomUserName}}'
-                email: '{{$randomEmail}}'
-                password: abc@1234
+              properties:
+                first_name:
+                 type: string
+                 example: Sohail
+                last_name:
+                 type: string
+                 example: Bukhari
+                username:
+                 type: string
+                 example: '{{$randomUserName}}'
+                email:
+                 type: string
+                 example: '{{$randomEmail}}'
+                password:
+                 type: string
+                 example: abc@1234
+              required:
+                - first_name
+                - last_name
+                - email
+                - username
+                - password
       responses:
         '200':
           description: Successful response
@@ -131,6 +160,16 @@ paths:
           application/json:
             schema:
               type: object
+              properties:
+                email:
+                 type: string
+                 example: '{{user_email}}}'
+                password:
+                 type: string
+                 example: abc@1234
+              required:
+                - email
+                - password
               example:
                 email: '{{user_email}}'
                 password: abc@1234
@@ -186,8 +225,13 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                email: '{{user_email}}'
+              properties:
+                email:
+                 type: string
+                 example: '{{user_email}}}'
+              required:
+                - email
+               
       responses:
         '200':
           description: Successful response
@@ -203,10 +247,21 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                email: '{{user_email}}'
-                password: abc@1234
-                code: WL5rO46ojmQHdciK5njYo
+              properties:
+                email:
+                 type: string
+                 example: '{{user_email}}}'
+                password:
+                 type: string
+                 example: abc@1234
+                code:
+                 type: string
+                 example: WL5rO46ojmQHdciK5njYo
+              required:
+                - email
+                - password
+                - code
+             
       responses:
         '200':
           description: Successful response
@@ -394,10 +449,23 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                name: Ali Raza
-                type: consumer
-                category: artist
+              properties:
+                name:
+                 type: string
+                 example: Ali Raza
+                type:
+                 type: string
+                 example: consumer or provider
+                category:
+                 type: string
+                 example: artist
+              required:
+                - name
+                - type
+              # example:
+              #   name: Ali Raza
+              #   type: consumer or provider
+              #   category: artist
       parameters:
         - name: Authorization
           in: header
@@ -419,8 +487,13 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                id: 61732d4bf7a083892141ecbb
+              properties:
+                id:
+                 type: string
+                 example: 61732d4bf7a083892141ecbb
+              required:
+                - id
+               
       parameters:
         - name: Authorization
           in: header
@@ -461,7 +534,7 @@ paths:
   /profiles/address:
     get:
       tags:
-        - Profile/Address
+        - Profile|Address
       summary: List
       parameters:
         - name: Authorization
@@ -476,23 +549,54 @@ paths:
             application/json: {}
     post:
       tags:
-        -  Profile/Address
+        -  Profile|Address
       summary: Create
       requestBody:
         content:
           application/json:
             schema:
               type: object
-              example:
-                default: true
-                label: Office
+              properties:
+                default:
+                 type: boolean
+                 example: true
+                label:
+                 type: string
+                 example: Office
                 address:
-                  location: House#123 Modal Town A
-                  city: Lahore
+                 type: object
+                 properties:
+                   location:
+                    type: string
+                    example: House#123 Modal Town A
+                   city:
+                    type: string
+                    example: Lahore
                 geo:
-                  coord:
-                    - 31.448552268730946
-                    - 74.25523178426592
+                 type: object
+                 properties:
+                   coord:
+                    type: array
+                    items:
+                      example: 
+                      - 31.448552268730946
+                      - 74.25523178426592
+                      
+              required:
+                - geo
+                - address
+                - label
+           
+              # example:
+              #   default: true
+              #   label: Office
+              #   address:
+              #     location: House#123 Modal Town A
+              #     city: Lahore
+              #   geo:
+              #     coord:
+              #       - 31.448552268730946
+              #       - 74.25523178426592
       parameters:
         - name: Authorization
           in: header
@@ -507,7 +611,7 @@ paths:
   /profiles/address/{address_id}:
     put:
       tags:
-        -  Profile/Address
+        -  Profile|Address
       summary: Update
       requestBody:
         content:
@@ -544,7 +648,7 @@ paths:
             application/json: {}
     delete:
       tags:
-        -  Profile/Address
+        -  Profile|Address
       summary: Delete
       parameters:
         - name: Authorization
@@ -565,7 +669,7 @@ paths:
   /profiles/following:
     get:
       tags:
-        -  Profile/Social
+        -  Profile|Social
       summary: Following
       parameters:
         - name: Authorization
@@ -583,10 +687,10 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /profiles/follow/61da8943bb540f5be300711c:
+  /profiles/follow/{profile_id}:
     post:
       tags:
-        -  Profile/Social
+        -  Profile|Social
       summary: Follow
       requestBody:
         content: {}
@@ -596,15 +700,20 @@ paths:
           schema:
             type: string
           example: Bearer {{access_token}}
+        - name: profile_id
+          in: path
+          schema:
+            type: string
+          required: true
       responses:
         '200':
           description: Successful response
           content:
             application/json: {}
-  /profiles/unfollow/61d99c92e4cbecfbba1403b3:
+  /profiles/unfollow/{profile_id}:
     delete:
       tags:
-        -  Profile/Social
+        -  Profile|Social
       summary: Unfollow
       parameters:
         - name: Authorization
@@ -612,6 +721,11 @@ paths:
           schema:
             type: string
           example: Bearer {{access_token}}
+        - name: profile_id
+          in: path
+          schema:
+            type: string
+          required: true
       responses:
         '200':
           description: Successful response
@@ -620,18 +734,24 @@ paths:
   /profiles/storefront:
     get:
       tags:
-        - Profile/Storefront
+        - Profile|Storefront
       summary: List
       responses:
         '200':
           description: Successful response
           content:
             application/json: {}
-  /profiles/storefront/61dab91a5efedc7e3503a2bb:
+  /profiles/storefront/{profile_id}:
     get:
       tags:
-        -  Profile/Storefront
+        -  Profile|Storefront
       summary: Single
+      parameters:
+        - name: profile_id
+          in: path
+          schema:
+            type: string
+          required: true
       responses:
         '200':
           description: Successful response
@@ -640,7 +760,7 @@ paths:
   /catalogs/variants/{catalog_id}/{variant_id}:
     get:
       tags:
-        - Catalog/Variant
+        - Catalog|Variant
       summary: Single
       parameters:
         - name: Authorization
@@ -665,7 +785,7 @@ paths:
             application/json: {}
     put:
       tags:
-        - Catalog/Variant
+        - Catalog|Variant
       summary: Update
       requestBody:
         content:
@@ -700,7 +820,7 @@ paths:
             application/json: {}
     delete:
       tags:
-        - Catalog/Variant
+        - Catalog|Variant
       summary: Remove
       parameters:
         - name: Authorization
@@ -726,7 +846,7 @@ paths:
   /catalogs/variants/{catalog_id}:
     post:
       tags:
-        - Catalog/Variant
+        - Catalog|Variant
       summary: Create
       requestBody:
         content:
@@ -757,7 +877,7 @@ paths:
   /catalogs/storefront/{catalog_id}:
     get:
       tags:
-        - Catalog/Storefront
+        - Catalog|Storefront
       summary: Single
       parameters:
         - name: Authorization
@@ -778,7 +898,7 @@ paths:
   /catalogs/storefront:
     get:
       tags:
-        - Catalog/Storefront
+        - Catalog|Storefront
       summary: List
       parameters:
         - name: Authorization
@@ -824,8 +944,8 @@ paths:
               type: object
               example:
                 name: Baverage Coke
-                type: service
-                status: active
+                type: service or item
+                status: active or draft
                 use_in_stock: false
                 quantity: 12
                 category: artist
@@ -919,7 +1039,7 @@ paths:
   /categories/storefront/{category}:
     get:
       tags:
-        - Categories/Storefront
+        - Categories|Storefront
       summary: Single
       parameters:
         - name: Authorization
@@ -940,7 +1060,7 @@ paths:
   /categories/storefront:
     get:
       tags:
-        - Categories/Storefront
+        - Categories|Storefront
       summary: List
       parameters:
         - name: Authorization
@@ -1043,7 +1163,7 @@ paths:
   /files/image/me:
     get:
       tags:
-        - Files/Image
+        - Files|Image
       summary: me
       parameters:
         - name: Authorization
@@ -1079,7 +1199,7 @@ paths:
   /files/image:
     post:
       tags:
-        - Files/Image
+        - Files|Image
       summary: Upload
       requestBody:
         content:
