@@ -170,9 +170,9 @@ paths:
               required:
                 - email
                 - password
-              example:
-                email: '{{user_email}}'
-                password: abc@1234
+              # example:
+              #   email: '{{user_email}}'
+              #   password: abc@1234
       responses:
         '200':
           description: Successful response
@@ -618,18 +618,37 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                default: 'true'
-                _id: 6173e2962373890a106e8b19
-                label: Home
+              properties:
+                default:
+                 type: boolean
+                 example: true
+                label:
+                 type: string
+                 example: Office
                 address:
-                  location: House#337 Modal Town A
-                  city: Bahawalpur
-                  postal_code: ''
+                 type: object
+                 properties:
+                   location:
+                    type: string
+                    example: House#123 Modal Town A
+                   city:
+                    type: string
+                    example: Lahore
                 geo:
-                  coord:
-                    - 31.448648285527074
-                    - 74.25426377664121
+                 type: object
+                 properties:
+                   coord:
+                    type: array
+                    items:
+                      example: 
+                      - 31.448552268730946
+                      - 74.25523178426592
+                      
+              required:
+                - geo
+                - address
+                - label
+             
       parameters:
         - name: Authorization
           in: header
@@ -792,11 +811,25 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                sku: booster-medium
-                name: teal
-                price: 10.2
-                position: 0
+              properties:
+                sku:
+                 type: string
+                 example: booster-small
+                name:
+                 type: string
+                 example: teal
+                price:
+                 type: integer
+                 example: 10.2
+                position:
+                 type: integer
+                 example: 0
+              required:
+                - name
+                - sku
+                - price
+                - position
+              
       parameters:
         - name: Authorization
           in: header
@@ -853,11 +886,25 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                sku: booster-small
-                name: teal
-                price: 10.2
-                position: 0
+              properties:
+                sku:
+                 type: string
+                 example: booster-small
+                name:
+                 type: string
+                 example: teal
+                price:
+                 type: integer
+                 example: 10.2
+                position:
+                 type: integer
+                 example: 0
+              required:
+                - name
+                - sku
+                - price
+                - position
+              
       parameters:
         - name: Authorization
           in: header
@@ -942,22 +989,98 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                name: Baverage Coke
-                type: service or item
-                status: active or draft
-                use_in_stock: false
-                quantity: 12
-                category: artist
+              properties:
+                name:
+                 type: string
+                 example: Baverage Coke
+                type:
+                 type: string
+                 example: service or item
+                status:
+                 type: string
+                 example: active or draft
+                use_in_stock:
+                 type: boolean
+                 example: false
+                description :
+                 type: string
+                 example: tasty
+                quantity:
+                 type: integer
+                 example: 12
+                category:
+                 type: string
+                 example: artist
+                image:
+                 type: object
+                 properties:
+                   alt:
+                    type: string
+                    example: pizza
+                   src:
+                     type: object
+                     properties:
+                      original:
+                       type: string
+                       example: pizza
+                      thumbnail:
+                       type: string
+                       example: pizza
+                images:
+                 type: array
+                 items:
+                  type: object
+                  properties:
+                   alt:
+                    type: string
+                    example: pizza
+                   src:
+                     type: object
+                     properties:
+                      original:
+                       type: string
+                       example: pizza
+                      thumbnail:
+                       type: string
+                       example: pizza  
                 variants:
-                  - sku: pizza-small
-                    name: small
-                    price: 8.2
-                    position: 0
+                 type: array
+                 items:
+                  type: object
+                  properties:
+                   sku:
+                    type: string
+                    example: pizza-small
+                   name:
+                    type: string
+                    example: small
+                   price:
+                    type: integer
+                    example: 8.2
+                   position:
+                    type: integer
+                    example: 0
                 extras:
-                  - name: coke
-                    price: 2.4
-                tags: []
+                 type: array
+                 items:
+                  type: object
+                  properties:
+                   name:
+                    type: string
+                    example: coke
+                   price:
+                    type: integer
+                    example: 8.2
+                tags:
+                 type: array
+                 items:
+                      example: small
+                      
+                   
+              required:
+                - type
+                - status
+             
       parameters:
         - name: Authorization
           in: header
@@ -979,27 +1102,104 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                name: Juice
-                status: archive
-                type: item
-                description: ''
-                image: null
-                images: []
-                category: artist
+              properties:
+                name:
+                 type: string
+                 example: Baverage Coke
+                type:
+                 type: string
+                 example: service or item
+                status:
+                 type: string
+                 example: active or draft
+                use_in_stock:
+                 type: boolean
+                 example: false
+                description :
+                 type: string
+                 example: tasty
+                quantity:
+                 type: integer
+                 example: 12
+                category:
+                 type: string
+                 example: artist
+                image:
+                 type: object
+                 properties:
+                   alt:
+                    type: string
+                    example: pizza
+                   src:
+                     type: object
+                     properties:
+                      original:
+                       type: string
+                       example: pizza
+                      thumbnail:
+                       type: string
+                       example: pizza
+                images:
+                 type: array
+                 items:
+                  type: object
+                  properties:
+                   alt:
+                    type: string
+                    example: pizza
+                   src:
+                     type: object
+                     properties:
+                      original:
+                       type: string
+                       example: pizza
+                      thumbnail:
+                       type: string
+                       example: pizza 
                 variants:
-                  - 61d9f78735c00bd840ff1c22
+                 type: array
+                 items:
+                  type: object
+                  properties:
+                   sku:
+                    type: string
+                    example: pizza-small
+                   name:
+                    type: string
+                    example: small
+                   price:
+                    type: integer
+                    example: 8.2
+                   position:
+                    type: integer
+                    example: 0
                 extras:
-                  - name: coke
-                    price: 2.4
+                 type: array
+                 items:
+                  type: object
+                  properties:
+                   name:
+                    type: string
+                    example: coke
+                   price:
+                    type: integer
+                    example: 8.2
                 tags:
-                  - '23'
-                order_count: 0
-                profile: 61d9e395f1c4afe4670239b7
-                _id: 61d9f78735c00bd840ff1c24
-                createdAt: '2022-01-08T20:43:51.975Z'
-                updatedAt: '2022-01-08T20:43:51.975Z'
-                __v: 0
+                 type: array
+                 items:
+                      example: small
+                order_count:
+                    type: integer
+                    example: 0
+                profile:
+                    type: string
+                    example: 61d9e395f1c4afe4670239b7
+                id:
+                    type: string
+                    example: 61d9e395f1c4afe4670239b7
+                
+                      
+             
       parameters:
         - name: Authorization
           in: header
@@ -1103,9 +1303,15 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                name: Restaurants
-                parent: null
+              properties:
+                name:
+                 type: string
+                 example: Restaurants
+                parent:
+                 type: string
+                 example: null
+              required:
+                - name
       parameters:
         - name: Authorization
           in: header
@@ -1147,8 +1353,14 @@ paths:
           application/json:
             schema:
               type: object
-              example:
-                name: Artist
+              properties:
+                name:
+                 type: string
+                 example: Restaurants
+                
+              required:
+                - name
+              
       parameters:
         - name: Authorization
           in: header
