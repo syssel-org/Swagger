@@ -12,12 +12,11 @@ tags:
   - name: Profile|Storefront
   - name: Catalog
   - name: Catalog|Variant
-  - name:  Catalog|Storefront
+  - name: Catalog|Storefront
   - name: Categories
   - name: Categories|Storefront
   - name: Files|Image
 paths:
- 
   /users/me:
     get:
       tags:
@@ -66,21 +65,21 @@ paths:
               type: object
               properties:
                 first_name:
-                 type: string
-                 example: Sohail
+                  type: string
+                  example: Sohail
                 last_name:
-                 type: string
-                 example: Bukhari
+                  type: string
+                  example: Bukhari
                 username:
-                 type: string
-                 example: rosamond76
+                  type: string
+                  example: rosamond76
                 email:
-                 type: string
-                 example: grant91@yahoo.com
+                  type: string
+                  example: grant91@yahoo.com
                 phone:
-                 type: string
-                 example: null
-              
+                  type: string
+                  example: null
+
       parameters:
         - name: Authorization
           in: header
@@ -125,20 +124,20 @@ paths:
               type: object
               properties:
                 first_name:
-                 type: string
-                 example: Sohail
+                  type: string
+                  example: Sohail
                 last_name:
-                 type: string
-                 example: Bukhari
+                  type: string
+                  example: Bukhari
                 username:
-                 type: string
-                 example: '{{$randomUserName}}'
+                  type: string
+                  example: '{{$randomUserName}}'
                 email:
-                 type: string
-                 example: '{{$randomEmail}}'
+                  type: string
+                  example: '{{$randomEmail}}'
                 password:
-                 type: string
-                 example: abc@1234
+                  type: string
+                  example: abc@1234
               required:
                 - first_name
                 - last_name
@@ -162,11 +161,11 @@ paths:
               type: object
               properties:
                 email:
-                 type: string
-                 example: '{{user_email}}}'
+                  type: string
+                  example: '{{user_email}}}'
                 password:
-                 type: string
-                 example: abc@1234
+                  type: string
+                  example: abc@1234
               required:
                 - email
                 - password
@@ -227,11 +226,15 @@ paths:
               type: object
               properties:
                 email:
-                 type: string
-                 example: '{{user_email}}}'
+                  type: string
+                  example: '{{user_email}}}'
+                source:
+                  type: string
+                  example: web | mobile
               required:
                 - email
-               
+                - source
+
       responses:
         '200':
           description: Successful response
@@ -249,19 +252,45 @@ paths:
               type: object
               properties:
                 email:
-                 type: string
-                 example: '{{user_email}}}'
+                  type: string
+                  example: '{{user_email}}}'
                 password:
-                 type: string
-                 example: abc@1234
+                  type: string
+                  example: abc@1234
                 code:
-                 type: string
-                 example: WL5rO46ojmQHdciK5njYo
+                  type: string
+                  example: WL5rO46ojmQHdciK5njYo
               required:
                 - email
                 - password
                 - code
-             
+
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /users/reset/check:
+    post:
+      tags:
+        - User
+      summary: Check / Validate Reset Code
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: '{{user_email}}}'
+                code:
+                  type: string
+                  example: 727178
+              required:
+                - email
+                - code
+
       responses:
         '200':
           description: Successful response
@@ -451,14 +480,14 @@ paths:
               type: object
               properties:
                 name:
-                 type: string
-                 example: Ali Raza
+                  type: string
+                  example: Ali Raza
                 type:
-                 type: string
-                 example: consumer or provider
+                  type: string
+                  example: consumer or provider
                 category:
-                 type: string
-                 example: artist
+                  type: string
+                  example: artist
               required:
                 - name
                 - type
@@ -489,11 +518,11 @@ paths:
               type: object
               properties:
                 id:
-                 type: string
-                 example: 61732d4bf7a083892141ecbb
+                  type: string
+                  example: 61732d4bf7a083892141ecbb
               required:
                 - id
-               
+
       parameters:
         - name: Authorization
           in: header
@@ -549,7 +578,7 @@ paths:
             application/json: {}
     post:
       tags:
-        -  Profile|Address
+        - Profile|Address
       summary: Create
       requestBody:
         content:
@@ -558,35 +587,35 @@ paths:
               type: object
               properties:
                 default:
-                 type: boolean
-                 example: true
+                  type: boolean
+                  example: true
                 label:
-                 type: string
-                 example: Office
+                  type: string
+                  example: Office
                 address:
-                 type: object
-                 properties:
-                   location:
-                    type: string
-                    example: House#123 Modal Town A
-                   city:
-                    type: string
-                    example: Lahore
+                  type: object
+                  properties:
+                    location:
+                      type: string
+                      example: House#123 Modal Town A
+                    city:
+                      type: string
+                      example: Lahore
                 geo:
-                 type: object
-                 properties:
-                   coord:
-                    type: array
-                    items:
-                      example: 
-                      - 31.448552268730946
-                      - 74.25523178426592
-                      
+                  type: object
+                  properties:
+                    coord:
+                      type: array
+                      items:
+                        example:
+                          - 31.448552268730946
+                          - 74.25523178426592
+
               required:
                 - geo
                 - address
                 - label
-           
+
               # example:
               #   default: true
               #   label: Office
@@ -611,7 +640,7 @@ paths:
   /profiles/address/{address_id}:
     put:
       tags:
-        -  Profile|Address
+        - Profile|Address
       summary: Update
       requestBody:
         content:
@@ -620,35 +649,35 @@ paths:
               type: object
               properties:
                 default:
-                 type: boolean
-                 example: true
+                  type: boolean
+                  example: true
                 label:
-                 type: string
-                 example: Office
+                  type: string
+                  example: Office
                 address:
-                 type: object
-                 properties:
-                   location:
-                    type: string
-                    example: House#123 Modal Town A
-                   city:
-                    type: string
-                    example: Lahore
+                  type: object
+                  properties:
+                    location:
+                      type: string
+                      example: House#123 Modal Town A
+                    city:
+                      type: string
+                      example: Lahore
                 geo:
-                 type: object
-                 properties:
-                   coord:
-                    type: array
-                    items:
-                      example: 
-                      - 31.448552268730946
-                      - 74.25523178426592
-                      
+                  type: object
+                  properties:
+                    coord:
+                      type: array
+                      items:
+                        example:
+                          - 31.448552268730946
+                          - 74.25523178426592
+
               required:
                 - geo
                 - address
                 - label
-             
+
       parameters:
         - name: Authorization
           in: header
@@ -667,7 +696,7 @@ paths:
             application/json: {}
     delete:
       tags:
-        -  Profile|Address
+        - Profile|Address
       summary: Delete
       parameters:
         - name: Authorization
@@ -688,7 +717,7 @@ paths:
   /profiles/following:
     get:
       tags:
-        -  Profile|Social
+        - Profile|Social
       summary: Following
       parameters:
         - name: Authorization
@@ -709,7 +738,7 @@ paths:
   /profiles/follow/{profile_id}:
     post:
       tags:
-        -  Profile|Social
+        - Profile|Social
       summary: Follow
       requestBody:
         content: {}
@@ -732,7 +761,7 @@ paths:
   /profiles/unfollow/{profile_id}:
     delete:
       tags:
-        -  Profile|Social
+        - Profile|Social
       summary: Unfollow
       parameters:
         - name: Authorization
@@ -763,7 +792,7 @@ paths:
   /profiles/storefront/{profile_id}:
     get:
       tags:
-        -  Profile|Storefront
+        - Profile|Storefront
       summary: Single
       parameters:
         - name: profile_id
@@ -813,23 +842,23 @@ paths:
               type: object
               properties:
                 sku:
-                 type: string
-                 example: booster-small
+                  type: string
+                  example: booster-small
                 name:
-                 type: string
-                 example: teal
+                  type: string
+                  example: teal
                 price:
-                 type: integer
-                 example: 10.2
+                  type: integer
+                  example: 10.2
                 position:
-                 type: integer
-                 example: 0
+                  type: integer
+                  example: 0
               required:
                 - name
                 - sku
                 - price
                 - position
-              
+
       parameters:
         - name: Authorization
           in: header
@@ -888,23 +917,23 @@ paths:
               type: object
               properties:
                 sku:
-                 type: string
-                 example: booster-small
+                  type: string
+                  example: booster-small
                 name:
-                 type: string
-                 example: teal
+                  type: string
+                  example: teal
                 price:
-                 type: integer
-                 example: 10.2
+                  type: integer
+                  example: 10.2
                 position:
-                 type: integer
-                 example: 0
+                  type: integer
+                  example: 0
               required:
                 - name
                 - sku
                 - price
                 - position
-              
+
       parameters:
         - name: Authorization
           in: header
@@ -991,96 +1020,95 @@ paths:
               type: object
               properties:
                 name:
-                 type: string
-                 example: Baverage Coke
+                  type: string
+                  example: Baverage Coke
                 type:
-                 type: string
-                 example: service or item
+                  type: string
+                  example: service or item
                 status:
-                 type: string
-                 example: active or draft
+                  type: string
+                  example: active or draft
                 use_in_stock:
-                 type: boolean
-                 example: false
-                description :
-                 type: string
-                 example: tasty
+                  type: boolean
+                  example: false
+                description:
+                  type: string
+                  example: tasty
                 quantity:
-                 type: integer
-                 example: 12
+                  type: integer
+                  example: 12
                 category:
-                 type: string
-                 example: artist
+                  type: string
+                  example: artist
                 image:
-                 type: object
-                 properties:
-                   alt:
-                    type: string
-                    example: pizza
-                   src:
-                     type: object
-                     properties:
-                      original:
-                       type: string
-                       example: pizza
-                      thumbnail:
-                       type: string
-                       example: pizza
+                  type: object
+                  properties:
+                    alt:
+                      type: string
+                      example: pizza
+                    src:
+                      type: object
+                      properties:
+                        original:
+                          type: string
+                          example: pizza
+                        thumbnail:
+                          type: string
+                          example: pizza
                 images:
-                 type: array
-                 items:
-                  type: object
-                  properties:
-                   alt:
-                    type: string
-                    example: pizza
-                   src:
-                     type: object
-                     properties:
-                      original:
-                       type: string
-                       example: pizza
-                      thumbnail:
-                       type: string
-                       example: pizza  
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      alt:
+                        type: string
+                        example: pizza
+                      src:
+                        type: object
+                        properties:
+                          original:
+                            type: string
+                            example: pizza
+                          thumbnail:
+                            type: string
+                            example: pizza
                 variants:
-                 type: array
-                 items:
-                  type: object
-                  properties:
-                   sku:
-                    type: string
-                    example: pizza-small
-                   name:
-                    type: string
-                    example: small
-                   price:
-                    type: integer
-                    example: 8.2
-                   position:
-                    type: integer
-                    example: 0
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      sku:
+                        type: string
+                        example: pizza-small
+                      name:
+                        type: string
+                        example: small
+                      price:
+                        type: integer
+                        example: 8.2
+                      position:
+                        type: integer
+                        example: 0
                 extras:
-                 type: array
-                 items:
-                  type: object
-                  properties:
-                   name:
-                    type: string
-                    example: coke
-                   price:
-                    type: integer
-                    example: 8.2
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: coke
+                      price:
+                        type: integer
+                        example: 8.2
                 tags:
-                 type: array
-                 items:
-                      example: small
-                      
-                   
+                  type: array
+                  items:
+                    example: small
+
               required:
                 - type
                 - status
-             
+
       parameters:
         - name: Authorization
           in: header
@@ -1104,102 +1132,100 @@ paths:
               type: object
               properties:
                 name:
-                 type: string
-                 example: Baverage Coke
+                  type: string
+                  example: Baverage Coke
                 type:
-                 type: string
-                 example: service or item
+                  type: string
+                  example: service or item
                 status:
-                 type: string
-                 example: active or draft
+                  type: string
+                  example: active or draft
                 use_in_stock:
-                 type: boolean
-                 example: false
-                description :
-                 type: string
-                 example: tasty
+                  type: boolean
+                  example: false
+                description:
+                  type: string
+                  example: tasty
                 quantity:
-                 type: integer
-                 example: 12
+                  type: integer
+                  example: 12
                 category:
-                 type: string
-                 example: artist
+                  type: string
+                  example: artist
                 image:
-                 type: object
-                 properties:
-                   alt:
-                    type: string
-                    example: pizza
-                   src:
-                     type: object
-                     properties:
-                      original:
-                       type: string
-                       example: pizza
-                      thumbnail:
-                       type: string
-                       example: pizza
+                  type: object
+                  properties:
+                    alt:
+                      type: string
+                      example: pizza
+                    src:
+                      type: object
+                      properties:
+                        original:
+                          type: string
+                          example: pizza
+                        thumbnail:
+                          type: string
+                          example: pizza
                 images:
-                 type: array
-                 items:
-                  type: object
-                  properties:
-                   alt:
-                    type: string
-                    example: pizza
-                   src:
-                     type: object
-                     properties:
-                      original:
-                       type: string
-                       example: pizza
-                      thumbnail:
-                       type: string
-                       example: pizza 
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      alt:
+                        type: string
+                        example: pizza
+                      src:
+                        type: object
+                        properties:
+                          original:
+                            type: string
+                            example: pizza
+                          thumbnail:
+                            type: string
+                            example: pizza
                 variants:
-                 type: array
-                 items:
-                  type: object
-                  properties:
-                   sku:
-                    type: string
-                    example: pizza-small
-                   name:
-                    type: string
-                    example: small
-                   price:
-                    type: integer
-                    example: 8.2
-                   position:
-                    type: integer
-                    example: 0
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      sku:
+                        type: string
+                        example: pizza-small
+                      name:
+                        type: string
+                        example: small
+                      price:
+                        type: integer
+                        example: 8.2
+                      position:
+                        type: integer
+                        example: 0
                 extras:
-                 type: array
-                 items:
-                  type: object
-                  properties:
-                   name:
-                    type: string
-                    example: coke
-                   price:
-                    type: integer
-                    example: 8.2
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: coke
+                      price:
+                        type: integer
+                        example: 8.2
                 tags:
-                 type: array
-                 items:
-                      example: small
+                  type: array
+                  items:
+                    example: small
                 order_count:
-                    type: integer
-                    example: 0
+                  type: integer
+                  example: 0
                 profile:
-                    type: string
-                    example: 61d9e395f1c4afe4670239b7
+                  type: string
+                  example: 61d9e395f1c4afe4670239b7
                 id:
-                    type: string
-                    example: 61d9e395f1c4afe4670239b7
-                
-                      
-             
+                  type: string
+                  example: 61d9e395f1c4afe4670239b7
+
       parameters:
         - name: Authorization
           in: header
@@ -1305,11 +1331,11 @@ paths:
               type: object
               properties:
                 name:
-                 type: string
-                 example: Restaurants
+                  type: string
+                  example: Restaurants
                 parent:
-                 type: string
-                 example: null
+                  type: string
+                  example: null
               required:
                 - name
       parameters:
@@ -1355,12 +1381,12 @@ paths:
               type: object
               properties:
                 name:
-                 type: string
-                 example: Restaurants
-                
+                  type: string
+                  example: Restaurants
+
               required:
                 - name
-              
+
       parameters:
         - name: Authorization
           in: header
