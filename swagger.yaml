@@ -17,11 +17,32 @@ tags:
   - name: Categories|Storefront
   - name: Files|Image
 paths:
+  /users/check:
+    get:
+      tags:
+        - User
+      summary: Check Availability
+      parameters:
+        - name: email
+          in: query
+          schema:
+            type: string
+          example: sohailbukhari07@gmail.com
+        - name: username
+          in: query
+          schema:
+            type: string
+          example: sohailbukhari
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
   /users/me:
     get:
       tags:
         - User
-      summary: Me
+      summary: Self
       parameters:
         - name: Authorization
           in: header
