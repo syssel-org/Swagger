@@ -327,11 +327,11 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /users/verify/again:
+  /users/trigger/activation:
     post:
       tags:
         - User
-      summary: Verify Again
+      summary: Send Activation Code
       requestBody:
         content: {}
       parameters:
@@ -345,18 +345,13 @@ paths:
           description: Successful response
           content:
             application/json: {}
-  /users/verify:
+  /users/registration/activate:
     get:
       tags:
         - User
-      summary: Verification
+      summary: Account Activation
       parameters:
-        - name: Authorization
-          in: header
-          schema:
-            type: string
-          example: Bearer {{access_token}}
-        - name: code
+        - name: token
           in: query
           schema:
             type: string
