@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Syssel|Microservices
+  title: Syssel Microservices
   version: 1.0.0
 servers:
   - url: https://api.staging.syssel.app
@@ -312,16 +312,6 @@ paths:
                 - email
                 - code
 
-      responses:
-        '200':
-          description: Successful response
-          content:
-            application/json: {}
-  /users/status:
-    get:
-      tags:
-        - User
-      summary: Instance Status
       responses:
         '200':
           description: Successful response
